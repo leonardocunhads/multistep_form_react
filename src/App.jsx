@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Componentes Importados
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import UserForm from "./components/UserForm";
+import ReviewForm from "./components/ReviewForm";
+import Thanks from "./components/Thanks";
+import "./App.css";
+// Hook
+import { useForm } from "./hooks/useForm";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const formComponents = [<UserForm />, <ReviewForm />, <Thanks />];
+
+  const { currentStep, currentComponent } = useForm(formComponents);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <div className="app">
+      <div className="header">
+        <h2>Deixe sua avaliação</h2>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Ficamos felizes com sua compra, utilize o formulário para avaliar o
+          produto.
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="form-container">
+        <p>etapas</p>
+        <form>
+          <div className="inputs-container">{currentComponent}</div>
+          <div className="actions">
+            <button type="button">
+              <GrFormPrevious />
+              <span>Voltar</span>
+            </button>
+            <button type="submit">
+              <GrFormNext />
+              <span>Próximo</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
